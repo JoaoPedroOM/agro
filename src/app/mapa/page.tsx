@@ -61,7 +61,7 @@ export default function Mapa() {
 
       <div className="container mx-auto p-4 z-0">
         <h1 className="text-3xl font-bold mb-6 font-second">
-          Mapa das suas colheitas
+          Mapa das suas colheitas 🌎
         </h1>
         <HarvestFilter
           fullFiltro={false}

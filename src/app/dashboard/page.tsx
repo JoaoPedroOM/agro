@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import SidebarMenu from "../../components/ui/SidebarMenu"
+import SidebarMenu from "../../components/ui/SidebarMenu";
 import InfoCards from "@/components/InfoCards";
 import HarvestBarChart from "@/components/HarvestBarChart";
 import HarvestLineChart from "@/components/HarvestLineChart";
@@ -43,7 +43,7 @@ export default function Dashboard() {
         }
         const data = await response.json();
         setHarvestData(data);
-        setFilteredHarvestData(data); 
+        setFilteredHarvestData(data);
       } catch (error) {
         console.error("Erro:", error);
       }
@@ -66,7 +66,7 @@ export default function Dashboard() {
     const id = Math.max(...harvestData.map((h) => h.id)) + 1;
     const harvestWithId = { ...newHarvest, id };
     setHarvestData([...harvestData, harvestWithId]);
-    setFilteredHarvestData([...filteredHarvestData, harvestWithId]); 
+    setFilteredHarvestData([...filteredHarvestData, harvestWithId]);
     setIsAddModalOpen(false);
   };
 
@@ -75,18 +75,18 @@ export default function Dashboard() {
       h.id === editedHarvest.id ? editedHarvest : h
     );
     setHarvestData(updatedHarvests);
-    setFilteredHarvestData(updatedHarvests); 
+    setFilteredHarvestData(updatedHarvests);
     setIsEditModalOpen(false);
   };
 
   const handleDelete = (id: number) => {
     const updatedHarvests = harvestData.filter((h) => h.id !== id);
     setHarvestData(updatedHarvests);
-    setFilteredHarvestData(updatedHarvests); 
+    setFilteredHarvestData(updatedHarvests);
   };
 
   return (
-    <div className="lg:flex lg:flex-row flex flex-col h-screen">
+    <div className="lg:flex lg:flex-row flex flex-col h-screen bg-gradient-to-b from-[#eefed1]/20 to-white">
       <SidebarMenu open={open} setOpen={setOpen} />
 
       <main className="flex-1 p-4 text-white">
@@ -103,7 +103,7 @@ export default function Dashboard() {
 
         <HarvestFilter
           onFilter={handleFilter}
-          fullFiltro = {true}
+          fullFiltro={true}
           locations={Array.from(new Set(harvestData.map((h) => h.location)))}
         />
 
