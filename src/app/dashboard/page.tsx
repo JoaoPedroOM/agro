@@ -1,11 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Sidebar, SidebarBody, SidebarLink } from "../../components/ui/Sidebar";
-import { SignedIn, UserButton, useUser } from "@clerk/clerk-react";
-import { MdSpaceDashboard } from "react-icons/md";
-import { FaHistory } from "react-icons/fa";
-import { SiOrganicmaps } from "react-icons/si";
+import SidebarMenu from "../../components/ui/SidebarMenu"
 import InfoCards from "@/components/InfoCards";
 import HarvestBarChart from "@/components/HarvestBarChart";
 import HarvestLineChart from "@/components/HarvestLineChart";
@@ -14,22 +10,7 @@ import { Button } from "@/components/ui/button";
 import HarvestTable from "@/components/HarvestTable";
 import AddHarvestModal from "@/components/AddHarvestModal";
 import EditHarvestModal from "@/components/EditHarvestModal";
-
-const Logo = () => (
-  <div className="text-left py-4 flex items-center">
-    <h2 className="text-3xl font-second font-bold text-transparent bg-clip-text bg-gradient-to-t from-green-800 to-green-400">
-      Agro m2
-    </h2>
-  </div>
-);
-
-const LogoIcon = () => (
-  <div className="text-center py-4">
-    <h2 className="text-3xl font-second font-bold text-transparent bg-clip-text bg-gradient-to-t from-green-800 to-green-400">
-      A
-    </h2>
-  </div>
-);
+import { useUser } from "@clerk/clerk-react";
 
 interface Harvest {
   id: number;
@@ -70,24 +51,6 @@ export default function Dashboard() {
     fetchHarvest();
   }, []);
 
-  const links = [
-    {
-      label: "Dashboard",
-      href: "/dashboard",
-      icon: <MdSpaceDashboard size={25} color="black" />,
-    },
-    {
-      label: "Historico",
-      href: "/historico",
-      icon: <FaHistory size={25} color="black" />,
-    },
-    {
-      label: "Mapas ",
-      href: "/Mapas ",
-      icon: <SiOrganicmaps size={25} color="black" />,
-    },
-  ];
-
   const handleFilter = (startDate: string, location: string) => {
     const filtered = harvestData.filter((harvest) => {
       const harvestDate = new Date(harvest.date);
@@ -124,26 +87,7 @@ export default function Dashboard() {
 
   return (
     <div className="lg:flex lg:flex-row flex flex-col h-screen">
-      <Sidebar open={open} setOpen={setOpen}>
-        <SidebarBody className="justify-between lg:gap-10 gap-2">
-          <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-            {open ? <Logo /> : <LogoIcon />}
-            <div className="lg:mt-8 mt-2 flex flex-col gap-2 font-semibold font-second">
-              {links.map((link, idx) => (
-                <SidebarLink key={idx} link={link} />
-              ))}
-            </div>
-          </div>
-          <div className="flex items-center gap-2 font-semibold text-gray-400">
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-            {open && user?.firstName && (
-              <span className="text-black font-second">{user.firstName}</span>
-            )}
-          </div>
-        </SidebarBody>
-      </Sidebar>
+      <SidebarMenu open={open} setOpen={setOpen} />
 
       <main className="flex-1 p-4 text-white">
         <div className="mb-5">
@@ -159,6 +103,7 @@ export default function Dashboard() {
 
         <HarvestFilter
           onFilter={handleFilter}
+          fullFiltro = {true}
           locations={Array.from(new Set(harvestData.map((h) => h.location)))}
         />
 
