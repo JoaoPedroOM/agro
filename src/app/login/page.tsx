@@ -23,7 +23,7 @@ export default function Login() {
 
   return (
     <div className="flex h-screen w-full items-center justify-center bg-[#e5e5e5] text-white relative overflow-hidden">
-      <div className="relative w-[400px] h-[400px] flex flex-col items-center justify-center bg-white rounded-xl p-6 border border-neutral-300 z-10">
+      <div className="relative lg:mx-0 mx-2 w-[400px] h-[400px] flex flex-col items-center justify-center bg-white rounded-xl p-6 border border-neutral-300 z-10">
         
         <div className="text-center w-full mb-6">
           <h1 className="font-second font-semibold text-lg text-center text-black">
