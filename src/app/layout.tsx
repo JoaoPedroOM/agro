@@ -1,6 +1,7 @@
+import {
+  ClerkProvider
+} from '@clerk/nextjs'
 import "./globals.css";
-
-
 
 export default function RootLayout({
   children,
@@ -8,6 +9,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <ClerkProvider>
     <html lang="pt-BR">
     <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -26,5 +28,6 @@ export default function RootLayout({
         {children}
       </body>
     </html>
+    </ClerkProvider>
   );
 }
