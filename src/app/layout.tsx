@@ -1,7 +1,24 @@
-import {
-  ClerkProvider
-} from '@clerk/nextjs'
+import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
+import { Roboto, Urbanist } from "next/font/google";
+
+// Configuração da fonte Roboto
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-roboto",
+});
+
+const urbanist = Urbanist({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-urbanist",
+});
+
+export const metadata = {
+  title: "Agro m2",
+  description: "Seu gerenciamento é aqui",
+};
 
 export default function RootLayout({
   children,
@@ -9,25 +26,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
     <html lang="pt-BR">
-    <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-
-        <link
-          href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className="antialiased">
-        {children}
+      <body className={`${roboto.variable} ${urbanist.variable} antialiased`}>
+        <ClerkProvider>{children}</ClerkProvider>
       </body>
     </html>
-    </ClerkProvider>
   );
 }

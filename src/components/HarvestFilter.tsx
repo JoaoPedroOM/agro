@@ -18,16 +18,16 @@ export default function HarvestFilter({ onFilter, locations }: HarvestFilterProp
   }
 
   return (
-    <div className="flex flex-wrap justify-end gap-4 mb-4">
+    <div className="flex w-full flex-wrap justify-end gap-4 mb-4">
       <Input
-      className='w-[180px]'
+      className='lg:w-[180px] w-[130px] text-[12px]'
         type="date"
         value={startDate}
         onChange={(e) => setStartDate(e.target.value)}
         placeholder="Data inicial"
       />
       <Select value={location} onValueChange={setLocation}>
-        <SelectTrigger className="w-[180px]">
+        <SelectTrigger className="lg:w-[180px] w-[130px] text-[12px]">
           <SelectValue placeholder="Selecione o local" />
         </SelectTrigger>
         <SelectContent>

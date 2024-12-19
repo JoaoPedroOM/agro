@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "../../components/ui/Sidebar";
 import { SignedIn, UserButton, useUser } from "@clerk/clerk-react";
-
 import { MdSpaceDashboard } from "react-icons/md";
 import { FaHistory } from "react-icons/fa";
 import { SiOrganicmaps } from "react-icons/si";
@@ -12,6 +11,9 @@ import HarvestBarChart from "@/components/HarvestBarChart";
 import HarvestLineChart from "@/components/HarvestLineChart";
 import HarvestFilter from "@/components/HarvestFilter";
 import { Button } from "@/components/ui/button";
+import HarvestTable from "@/components/HarvestTable";
+import AddHarvestModal from "@/components/AddHarvestModal";
+import EditHarvestModal from "@/components/EditHarvestModal";
 
 const Logo = () => (
   <div className="text-left py-4 flex items-center">
@@ -44,7 +46,12 @@ interface Harvest {
 
 export default function Dashboard() {
   const [harvestData, setHarvestData] = useState<Harvest[]>([]);
-  const [filteredHarvests, setFilteredHarvests] = useState<Harvest[]>([]);
+  const [filteredHarvestData, setFilteredHarvestData] = useState<Harvest[]>([]);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedHarvest, setSelectedHarvest] = useState<Harvest | null>(null);
+  const { user } = useUser();
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     async function fetchHarvest() {
@@ -55,7 +62,7 @@ export default function Dashboard() {
         }
         const data = await response.json();
         setHarvestData(data);
-        setFilteredHarvests(data);
+        setFilteredHarvestData(data); 
       } catch (error) {
         console.error("Erro:", error);
       }
@@ -81,9 +88,6 @@ export default function Dashboard() {
     },
   ];
 
-  const [open, setOpen] = useState(false);
-  const { user } = useUser();
-
   const handleFilter = (startDate: string, location: string) => {
     const filtered = harvestData.filter((harvest) => {
       const harvestDate = new Date(harvest.date);
@@ -92,7 +96,30 @@ export default function Dashboard() {
         harvestDate >= start && (!location || harvest.location === location)
       );
     });
-    setFilteredHarvests(filtered);
+    setFilteredHarvestData(filtered);
+  };
+
+  const handleAdd = (newHarvest: Omit<Harvest, "id">) => {
+    const id = Math.max(...harvestData.map((h) => h.id)) + 1;
+    const harvestWithId = { ...newHarvest, id };
+    setHarvestData([...harvestData, harvestWithId]);
+    setFilteredHarvestData([...filteredHarvestData, harvestWithId]); 
+    setIsAddModalOpen(false);
+  };
+
+  const handleEdit = (editedHarvest: Harvest) => {
+    const updatedHarvests = harvestData.map((h) =>
+      h.id === editedHarvest.id ? editedHarvest : h
+    );
+    setHarvestData(updatedHarvests);
+    setFilteredHarvestData(updatedHarvests); 
+    setIsEditModalOpen(false);
+  };
+
+  const handleDelete = (id: number) => {
+    const updatedHarvests = harvestData.filter((h) => h.id !== id);
+    setHarvestData(updatedHarvests);
+    setFilteredHarvestData(updatedHarvests); 
   };
 
   return (
@@ -128,7 +155,7 @@ export default function Dashboard() {
           </p>
         </div>
 
-        <InfoCards harvests={filteredHarvests} />
+        <InfoCards harvests={filteredHarvestData} />
 
         <HarvestFilter
           onFilter={handleFilter}
@@ -136,8 +163,33 @@ export default function Dashboard() {
         />
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mb-8">
-          <HarvestBarChart harvests={filteredHarvests} />
-          <HarvestLineChart harvests={filteredHarvests} />
+          <HarvestBarChart harvests={filteredHarvestData} />
+          <HarvestLineChart harvests={filteredHarvestData} />
+        </div>
+
+        <div className="container mx-auto p-4">
+          <Button onClick={() => setIsAddModalOpen(true)} className="mb-4">
+            Adicionar Colheita
+          </Button>
+          <HarvestTable
+            harvests={filteredHarvestData}
+            onEdit={(harvest) => {
+              setSelectedHarvest(harvest);
+              setIsEditModalOpen(true);
+            }}
+            onDelete={handleDelete}
+          />
+          <AddHarvestModal
+            isOpen={isAddModalOpen}
+            onClose={() => setIsAddModalOpen(false)}
+            onAdd={handleAdd}
+          />
+          <EditHarvestModal
+            isOpen={isEditModalOpen}
+            onClose={() => setIsEditModalOpen(false)}
+            onEdit={handleEdit}
+            harvest={selectedHarvest}
+          />
         </div>
       </main>
     </div>
