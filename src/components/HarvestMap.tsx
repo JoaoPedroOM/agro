@@ -36,7 +36,7 @@ export default function HarvestMap({ harvests }: HarvestMapProps) {
           <Popup>
             <div>
               <h3>{harvest.location}</h3>
-              <p>Data: {new Date(harvest.date).toLocaleDateString('pt-BR')}</p>
+              <p>Data: {harvest.date}</p>
               <p>Quantidade: {harvest.quantity} t</p>
               <p>Tipo de Cultura: {harvest.cropType}</p>
             </div>

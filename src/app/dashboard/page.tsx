@@ -41,15 +41,20 @@ export default function Dashboard() {
 
   const handleFilter = (startDate: string, location: string) => {
     const filtered = harvestData.filter((harvest) => {
+      if (!startDate) {
+        return !location || harvest.location === location;
+      }
       const harvestDate = new Date(harvest.date);
-      const start = startDate ? new Date(startDate) : new Date(0);
-      return (
-        harvestDate >= start && (!location || harvest.location === location)
-      );
+      const filterDate = startDate ? new Date(startDate) : new Date(0);
+  
+      const dateMatch = harvestDate.getTime() === filterDate.getTime();
+      const locationMatch = !location || harvest.location === location;
+  
+      return dateMatch && locationMatch;
     });
+  
     setFilteredHarvestData(filtered);
   };
-
   const handleAdd = (newHarvest: Omit<Harvest, "id">) => {
     const id = Math.max(...harvestData.map((h) => h.id)) + 1;
     const harvestWithId = { ...newHarvest, id };

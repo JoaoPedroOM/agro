@@ -19,7 +19,7 @@ export default function HarvestLineChart({ harvests }: HarvestLineChartProps) {
   );
 
   const data = sortedHarvests.map((harvest) => ({
-    date: new Date(harvest.date).toLocaleDateString(),
+    date: harvest.date,
     quantity: harvest.quantity,
   }));
 
