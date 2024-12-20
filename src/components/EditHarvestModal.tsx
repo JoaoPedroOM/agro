@@ -3,19 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "./ui/label";
-
-interface Harvest {
-    id: number;
-    userId: number;
-    date: string;
-    location: string;
-    geoLocation: {
-      latitude: number;
-      longitude: number;
-    };
-    quantity: number;
-    cropType: string;
-  }
+import { Harvest } from "@/types/harvest";
 
 interface EditHarvestModalProps {
   isOpen: boolean

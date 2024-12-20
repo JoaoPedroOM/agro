@@ -11,19 +11,7 @@ import HarvestTable from "@/components/HarvestTable";
 import AddHarvestModal from "@/components/AddHarvestModal";
 import EditHarvestModal from "@/components/EditHarvestModal";
 import { useUser } from "@clerk/clerk-react";
-
-interface Harvest {
-  id: number;
-  userId: number;
-  date: string;
-  location: string;
-  geoLocation: {
-    latitude: number;
-    longitude: number;
-  };
-  quantity: number;
-  cropType: string;
-}
+import { Harvest } from "@/types/harvest";
 
 export default function Dashboard() {
   const [harvestData, setHarvestData] = useState<Harvest[]>([]);

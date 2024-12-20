@@ -4,20 +4,7 @@ import { useEffect } from 'react'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
-
-interface Harvest {
-    id: number;
-    userId: number;
-    date: string;
-    location: string;
-    geoLocation: {
-      latitude: number;
-      longitude: number;
-    };
-    quantity: number;
-    cropType: string;
-  }
-
+import { Harvest } from '@/types/harvest'
   interface HarvestMapProps {
     harvests: Harvest[];
   }

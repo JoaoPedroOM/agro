@@ -8,7 +8,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "./ui/label";
-import { mockData } from "@/mock/harvestData";
 
 interface Harvest {
   id: number;

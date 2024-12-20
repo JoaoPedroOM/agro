@@ -1,18 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-
-interface Harvest {
-    id: number;
-    userId: number;
-    date: string;
-    location: string;
-    geoLocation: {
-      latitude: number;
-      longitude: number;
-    };
-    quantity: number;
-    cropType: string;
-  }
-
+import { Harvest } from "@/types/harvest"
   interface InfoCardsProps {
     harvests: Harvest[]; 
   }

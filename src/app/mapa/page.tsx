@@ -3,24 +3,12 @@ import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import SidebarMenu from "@/components/ui/SidebarMenu";
 import HarvestFilter from "@/components/HarvestFilter";
+import { Harvest } from "@/types/harvest";
 
 const HarvestMap = dynamic(() => import("../../components/HarvestMap"), {
   ssr: false,
   loading: () => <p>Carregando mapa...</p>,
 });
-
-interface Harvest {
-  id: number;
-  userId: number;
-  date: string;
-  location: string;
-  geoLocation: {
-    latitude: number;
-    longitude: number;
-  };
-  quantity: number;
-  cropType: string;
-}
 
 export default function Mapa() {
   const [harvests, setHarvests] = useState<Harvest[]>([]);

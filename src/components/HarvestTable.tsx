@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Table,
   TableBody,
@@ -8,20 +7,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-
-interface Harvest {
-  id: number;
-  userId: number;
-  date: string;
-  location: string;
-  geoLocation: {
-    latitude: number;
-    longitude: number;
-  };
-  quantity: number;
-  cropType: string;
-}
-
+import { Harvest } from "@/types/harvest";
 interface HarvestTableProps {
   harvests: Harvest[];
   onEdit: (harvest: Harvest) => void;
