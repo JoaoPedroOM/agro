@@ -29,7 +29,6 @@ export default function Login() {
           <h1 className="font-second font-semibold text-lg text-center text-black">
             Entre com sua conta
           </h1>
-
         </div>
 
         <div className="relative mt-6 w-full">

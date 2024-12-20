@@ -2,7 +2,6 @@ import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import { Roboto, Urbanist } from "next/font/google";
 
-// Configuração da fonte Roboto
 const roboto = Roboto({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
@@ -16,7 +15,7 @@ const urbanist = Urbanist({
 });
 
 export const metadata = {
-  title: "Agro m2",
+  title: "Agro m²",
   description: "Seu gerenciamento é aqui",
 };
 

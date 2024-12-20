@@ -6,7 +6,7 @@ import { Sidebar, SidebarBody, SidebarLink } from "../../components/ui/Sidebar";
 const Logo = () => (
   <div className="text-left py-4 flex items-center">
     <h2 className="text-3xl font-second font-bold text-transparent bg-clip-text bg-gradient-to-t from-green-800 to-green-400">
-      Agro m2
+      Agro m²
     </h2>
   </div>
 );
